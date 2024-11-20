@@ -12,7 +12,7 @@ app.listen(4000, () => {
   console.log('Server running on port 4000');
 });
 
-mongoose.connect('mongodb+srv://322103312083:951509290@cluster0.pz9fe.mongodb.net/rlr')
+mongoose.connect("mongodb+srv://322103312083:951509290@cluster0.pz9fe.mongodb.net/rlr")
   .then(() => {
     console.log('Database connected successfully'); 
   })
@@ -76,5 +76,7 @@ app.get('/profile',middleware,async(req,res)=>{
         return res.status(500).json({message:"server error"})
      }
 })
-
+app.get('/hello',(req,res)=>{
+    res.send("hello world")
+})
 
