@@ -76,7 +76,8 @@ app.get('/profile',middleware,async(req,res)=>{
         return res.status(500).json({message:"server error"})
      }
 })
-app.get('/hello',(req,res)=>{
-    res.send("hello world")
-})
+app.get('/', (req, res) => {
+    res.send('Welcome to the RLR Server!');
+  });
+  
 
