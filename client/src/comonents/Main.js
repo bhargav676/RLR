@@ -14,7 +14,7 @@ const Main = () => {
     } else {
       // Fetch profile data
       axios
-        .get('http://127.0.0.1:4000/profile', {
+        .get('https://rlrserver.vercel.app/profile', {
           headers: {
             'x-token': token, // Include token in headers
           },

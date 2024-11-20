@@ -24,7 +24,7 @@ const Signup = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://127.0.0.1:4000/signup', {
+      const response = await axios.post('https://rlrserver.vercel.app/signup', {
         username,
         mobile,
         email,
