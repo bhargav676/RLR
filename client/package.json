@@ -4,13 +4,20 @@
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-free": "6.7.0",
+    "@nextui-org/image": "2.2.3",
+    "@nextui-org/react": "2.6.8",
+    "@tabler/icons-react": "3.25.0",
     "@tailwindcss/line-clamp": "0.4.4",
     "@testing-library/jest-dom": "5.17.0",
     "@testing-library/react": "13.4.0",
     "@testing-library/user-event": "13.5.0",
     "ajv": "6.12.6",
     "ajv-keywords": "3.5.2",
+    "aos": "2.3.4",
     "axios": "1.7.7",
+    "clsx": "2.1.1",
+    "framer-motion": "11.13.1",
+    "next": "15.1.0",
     "react": "^18.3.1",
     "react-confetti": "6.1.0",
     "react-dom": "^18.3.1",
@@ -19,6 +26,7 @@
     "react-router-dom": "6.28.0",
     "react-scripts": "5.0.1",
     "react-tsparticles": "2.12.2",
+    "tailwind-merge": "2.5.5",
     "web-vitals": "2.1.4"
   },
   "scripts": {

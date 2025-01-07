@@ -1,129 +1,143 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { store } from '../App';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { GoPerson } from "react-icons/go";
-import { CiSearch, CiShoppingBasket } from "react-icons/ci";
-import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai';
-import logo from '../images/logo.png';
-import sale from '../images/hero.jpg'
-const Main = () => {
-    const navigate = useNavigate();
-    const [token] = useContext(store);
-    const [data, setData] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [menuOpen, setMenuOpen] = useState(false);
-    const [searchQuery, setSearchQuery] = useState('');
+import Particles from 'react-tsparticles';
+import Confetti from 'react-confetti';
 
-    const toggleMenu = () => setMenuOpen(!menuOpen);
+const EnhancedRLRAnimation = () => {
+  const [showText, setShowText] = useState(false);
+  const [countdown, setCountdown] = useState(4); // Countdown for redirection
+  const [hovered, setHovered] = useState(false); // For button hover animation
+  // Background music toggle
+  const [showConfetti, setShowConfetti] = useState(false); // Confetti trigger
+  const navigate = useNavigate();
 
-    useEffect(() => {
-        if (!token) {
-            navigate('/login');
-        } else {
-            axios
-                .get('https://rlrserver.vercel.app/profile', { headers: { 'x-token': token } })
-                .then((res) => {
-                    setData(res.data);
-                    setLoading(false);
-                })
-                .catch((err) => {
-                    console.error('Error fetching profile data:', err);
-                    setData({ error: 'Unable to fetch profile data' });
-                    setLoading(false);
-                });
-        }
-    }, [token, navigate]);
+  useEffect(() => {
+    // Show text after 0.5 seconds
+    const textTimeout = setTimeout(() => setShowText(true), 500);
 
-    const handleSearch = () => {
-        console.log('Search query:', searchQuery);
-       
+    // Start the countdown for redirection
+    const countdownInterval = setInterval(() => {
+      setCountdown((prev) => (prev > 0 ? prev - 1 : 0));
+    }, 1000);
+
+    // Redirect to another page after 4 seconds
+    const redirectTimeout = setTimeout(() => {
+      navigate('/login'); // Replace with your route
+    }, 4000);
+
+    // Cleanup timers
+    return () => {
+      clearTimeout(textTimeout);
+      clearInterval(countdownInterval);
+      clearTimeout(redirectTimeout);
     };
+  }, [navigate]);
 
-    if (!token) return null;
-    if (loading) 
-    console.log(data, handleSearch)
+  return (
+    <div className="h-screen w-full relative overflow-hidden bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900">
+      {/* Confetti Effect */}
+      {showConfetti && <Confetti recycle={false} numberOfPieces={150} />}
+
+      {/* Particles Effect */}
+      <Particles
+        className="absolute inset-0"
+        options={{
+          background: { color: { value: "transparent" } },
+          particles: {
+            number: { value: 100 },
+            size: { value: 3 },
+            move: { enable: true, speed: 2 },
+            line_linked: { enable: true, distance: 150 },
+            color: { value: "#ffffff" }, // White particles for a minimalist effect
+          },
+        }}
+      />
+
+      <div className="h-full flex flex-col justify-center items-center relative">
     
-    return (
-        <div>
 
+        {/* Animated Text */}
+        <div
+          className={`flex justify-center gap-3 ${!showText ? 'hidden' : ''}`}
+        >
+          {/* First "R" */}
+          <p
+            className="text-9xl font-mono font-extrabold text-white animate-bounce hover:animate-spin"
+            title="Resilience"
+          >
+            R
+          </p>
 
-            <div className="bg-white shadow-lg lg:bg-cover lg:bg-center lg:h-screen bg-cover bg-center "
-                style={{ backgroundImage: `url(${sale})` }}>
-                <div className="flex items-center justify-around bg-black opacity-75 h-20 fixed top-0 left-0 right-0 z-50">
-                    {/* Logo Section */}
-                    <div className="flex items-center gap-1">
-                        <img src={logo} alt="Logo" className="w-14 h-14 md:w-16 md:h-16" />
-                    </div>
+          {/* "L" with glow */}
+          <p
+            className="text-9xl font-mono font-extrabold text-[#4b94ff] animate-bounce glow hover:animate-pulse"
+            title="Leadership"
+          >
+            L
+          </p>
 
-                    <div className="hidden md:flex items-center gap-8">
-                        <p className="transition-all cursor-pointer hover:scale-110 font-semibold text-white">Home</p>
-                        <p className="transition-all cursor-pointer hover:scale-110 font-semibold text-white">Shop</p>
-                        <p className="transition-all cursor-pointer hover:scale-110 font-semibold text-white">About</p>
-                        <p className="transition-all cursor-pointer hover:scale-110 font-semibold text-white">Contact</p>
-                    </div>
-                    <div className="flex items-center gap-4 relative w-64 sm:w-64 md:w-80 lg:w-80 xl:w-1/4 ml-3">
-                        <input
-                            type="text"
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                            placeholder="Search..."
-                            className="w-full px-5 py-2 pr-10 rounded-full bg-black text-white border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[black] shadow-md transition-all"
-                        />
-                        <CiSearch
-                            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[#ffffff] w-6 h-10"
-                            aria-label="Search Icon"
-                        />
-                    </div>
-
-                    
-                    <div className="hidden md:flex items-center gap-6">
-                        <GoPerson className="text-[white] text-2xl cursor-pointer hover:scale-110 transition-all h-10" aria-label="User Profile" />
-                        <CiShoppingBasket className="text-[#ffffff] text-2xl cursor-pointer hover:scale-110 transition-all h-10" aria-label="Cart" />
-                    </div>
-
-                  
-                    <div className="md:hidden text-2xl cursor-pointer text-white" onClick={toggleMenu}>
-                        {menuOpen ? <AiOutlineClose /> : <AiOutlineMenu />}
-                    </div>
-                </div>
-
-                
-                <div
-                    className={`md:hidden absolute top-[83px] right-0 w-52 bg-black text-white opacity-75 shadow-lg rounded-lg transition-all z-50 ${menuOpen ? 'block' : 'hidden'}`}
-                    style={{ boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)' }}
-                >
-                    <div className="flex flex-col items-center py-4">
-                        <p className="py-2 transition-all cursor-pointer">Home</p>
-                        <p className="py-2 transition-all cursor-pointer">Shop</p>
-                        <p className="py-2 transition-all cursor-pointer">About</p>
-                        <p className="py-2 transition-all cursor-pointer">Contact</p>
-                        <div className="flex gap-6 mt-4">
-                            <CiShoppingBasket className="text-[#ffffff] text-2xl cursor-pointer hover:scale-110 transition-all" aria-label="Cart" />
-                        </div>
-                    </div>
-                </div>
-
-                <div className="pt-24"> 
-                    <p className='text-white font-semibold font-mono lg:text-3xl lg:mt-40 md:ml-20 md:text-3xl md:mt-40 sm:ml-16 sm:text-2xl sm:mt-40 xlg:text-3xl xlg:mt-40 xlg:ml-28 text-xl mt-20  ml-5 opacity-100'>TRUSTED ELECTRONICS TO MAKE</p><br/>
-                    <p className='text-white lg,md,sm:font-semibold font-bold font-mono lg:text-5xl  md:ml-20 md:text-5xl  sm:ml-16 sm:text-4xl  xlg:text-3xl  xlg:ml-28 text-[27px]   ml-5 opacity-100'>YOUR PROJECTS BRILLIANT</p>
-                </div><br/>
-                <button
-                    className='bg-[rgba(36,174,241,255)] mt-10 ml-36 mb-8 sm:ml-0 md:ml-10 lg:ml-20 xl:ml-20 md:mt-3 sm:mt-3 xl:mt-3 lg:mt-3 w-28 h-10 rounded-full text-white font-semibold sm:w-24 sm:h-8 md:w-28 md:h-10 lg:w-32 lg:h-12 xl:w-32 xl:h-12'
-                >
-                    Shop now
-                </button>
-            </div>
-              
-            <div>
-                <center>
-               <p className='mt-10 font-bold text-4xl lg:text-7xl md:text-5xl sm:4xl text-[#333333]'>Dynamic Projects</p><br/>
-               <p className='text-gray-400 lg:text-lg'>Explore our collection of innovative electronics projects ranging from beginner-friendly Arduino </p>
-               <p className='text-gray-400 lg:text-lg'>  setups to more advanced hardware designs</p>
-               </center>
-            </div>
+          {/* Second "R" */}
+          <p
+            className="text-9xl font-mono font-extrabold text-white animate-bounce hover:animate-wiggle"
+            title="Responsibility"
+          >
+            R
+          </p>
         </div>
-    );
+
+        {/* Progress Bar */}
+        <div className="w-1/5 mt-10">
+          <div className="h-1 bg-gray-600 rounded-full">
+            <div
+              className="h-full bg-blue-500"
+              style={{ width: `${(4 - countdown) * 25}%` }} // Dynamically adjusting the width
+            ></div>
+          </div>
+        </div>
+
+        {/* Interactive Buttons */}
+        <div className="mt-12 flex gap-5">
+          <button
+            onClick={() => {
+              setShowConfetti(true);
+              setTimeout(() => navigate('/login'), 500); // Add delay for confetti effect
+            }}
+            onMouseEnter={() => setHovered(true)}
+            onMouseLeave={() => setHovered(false)}
+            className={`px-6 py-3 bg-blue-600 text-white font-semibold rounded-full shadow-lg transition-all transform ${
+              hovered ? 'scale-110 shadow-xl' : 'scale-100'
+            }`}
+          >
+            Skip Animation
+          </button>
+
+         
+        </div>
+
+        {/* Hover Effect */}
+        <p className="mt-5 text-lg text-white font-light text-center transition-all hover:text-[#4b94ff]">
+          Click to skip the animation!
+        </p>
+      </div>
+
+      {/* Footer */}
+      <footer className="absolute bottom-5 w-full text-center text-white">
+        <p>✨ Built with React | TailwindCSS | Particles.js ✨</p>
+        <div className="flex justify-center gap-4 mt-2">
+          {/* Social Media Links */}
+          <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+            <i className="fab fa-twitter text-2xl text-white hover:text-blue-400 transition-all"></i>
+          </a>
+          <a href="https://github.com" target="_blank" rel="noopener noreferrer">
+            <i className="fab fa-github text-2xl text-white hover:text-gray-400 transition-all"></i>
+          </a>
+          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
+            <i className="fab fa-linkedin text-2xl text-white hover:text-blue-500 transition-all"></i>
+          </a>
+        </div>
+      </footer>
+    </div>
+  );
 };
 
-export default Main;
+export default EnhancedRLRAnimation;
