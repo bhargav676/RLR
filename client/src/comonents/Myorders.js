@@ -21,7 +21,7 @@ const MyOrders = () => {
           return;
         }
 
-        const response = await axios.get('http://127.0.0.1:4000/myorders', {
+        const response = await axios.get('https://rlrserver.vercel.app/myorders', {
           headers: {
             'Authorization': token,
           },

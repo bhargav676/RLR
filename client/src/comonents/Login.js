@@ -25,7 +25,7 @@ const Login = () => {
     setSuccess('');
   
     try {
-      const response = await axios.post('http://127.0.0.1:4000/login', {
+      const response = await axios.post('https://rlrserver.vercel.app/login', {
         email,
         password,
       });
