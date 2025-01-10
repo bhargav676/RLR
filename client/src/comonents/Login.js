@@ -50,27 +50,26 @@ const Login = () => {
        <style>
         {`
           .loader {
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  border: 2px solid transparent;
-  border-top: 4px solid white;
-  border-right: 4px solid rgba(255, 255, 255, 0.7);
-  border-radius: 50%;
-  animation: pulse 0.75s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
+          border: 4px solid #f3f3f3; /* Light gray */
+          border-top: 4px solid #3498db; /* Blue */
+          border-radius: 50%;
+          width: 20px;
+          height: 20px;
+          animation: spin 1s linear infinite;
+        }
 
-@keyframes pulse {
-  0% {
-    transform: rotate(0deg) scale(1);
-  }
-  50% {
-    transform: rotate(180deg) scale(1.2);
-  }
-  100% {
-    transform: rotate(360deg) scale(1);
-  }
-}
+        /* Keyframe for spinning effect */
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+
+        /* Additional CSS to center the loader within the button */
+        button:disabled {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
 
         `}
       </style>

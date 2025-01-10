@@ -6,7 +6,6 @@ const Footer = () => {
     <footer className="bg-white text-gray-700 py-8 px-4">
       <div className="border-t border-gray-300 mb-8"></div>
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
-        {/* About Section */}
         <div>
           <h2 className="text-lg font-semibold mb-4">About Us</h2>
           <p className="text-sm">
@@ -15,18 +14,16 @@ const Footer = () => {
           </p>
         </div>
 
-        {/* Links Section */}
+
         <div>
           <h2 className="text-lg font-semibold mb-4">Quick Links</h2>
           <ul className="space-y-2 text-sm">
             <li><a href="/" className="hover:underline">Home</a></li>
             <li><a href="/products" className="hover:underline">Products</a></li>
-            <li><a href="/about" className="hover:underline">About</a></li>
+            <li><a href="/store"className="hover:underline">Shop</a></li>
             <li><a href="/contact" className="hover:underline">Contact</a></li>
           </ul>
         </div>
-
-        {/* Social Media Section */}
         <div>
           <h2 className="text-lg font-semibold mb-4">Follow Us</h2>
           <div className="flex space-x-4">

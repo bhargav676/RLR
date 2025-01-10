@@ -1,39 +1,39 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { PiArrowFatRightLight } from "react-icons/pi";
-
+import { MdLocalShipping, MdOutlineVerified } from "react-icons/md";
+import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 const Buy = () => {
     const location = useLocation();
     const [productData, setProductData] = useState(null);
-    const [increase,setIncrease]=useState(1);
+    const [increase, setIncrease] = useState(1);
     const [gram, setGram] = useState(0);
-    const [isPaymentPopupVisible, setPaymentPopupVisible] = useState(false);
-    
+
     const navigate = useNavigate();
+
     const dec = () => {
         setIncrease((prev) => {
-            const newIncrease = Math.max(prev - 1, 1); // Ensure it doesn't go below 1
-            setGram(newIncrease * productData.productPrice); // Update gram based on new quantity
+            const newIncrease = Math.max(prev - 1, 1);
+            setGram(newIncrease * productData.productPrice);
             return newIncrease;
         });
     };
-    
+
     const inc = () => {
         setIncrease((prev) => {
-            const newIncrease = prev + 1; // Increment the quantity
-            setGram(newIncrease * productData.productPrice); // Update gram based on new quantity
+            const newIncrease = prev + 1;
+            setGram(newIncrease * productData.productPrice);
             return newIncrease;
         });
     };
-    
-    
+
     useEffect(() => {
         if (location.state) {
             setProductData(location.state);
-            setGram(location.state.productPrice); 
+            setGram(location.state.productPrice);
         }
     }, [location.state]);
-     
+
     const handleCartClick = () => {
         navigate('/cart', {
             state: {
@@ -44,74 +44,96 @@ const Buy = () => {
         });
     };
 
-    const handleBuyNowClick = () => {
-        setPaymentPopupVisible(true);
-    };
-
-    const handleClosePaymentPopup = () => {
-        setPaymentPopupVisible(false);
-    };
-
     if (!productData) {
-        return <div>Loading...</div>; // Show loading until data is available
+        return <div className="flex justify-center items-center h-screen text-gray-700">Loading...</div>;
     }
 
     return (
-        <div className='flex flex-col lg:flex-row lg:gap-10 lg:ml-20 lg:mt-9 p-4'>
-            <img src={productData.imagePath} alt="Selected Product" className="w-full lg:w-2/5 lg:h-2/5 lg:ml-0 lg:mt-4 rounded-md shadow-md" />
-            <div className='mt-4 lg:mt-10 lg:ml-10 flex-1'>
-                <h1 className='text-2xl lg:text-3xl font-bold font-[ui-sans-serif] mb-2'>
-                    {productData.productName} 
-                </h1>
-                <h1 className='text-lg lg:text-xl text-gray-600 mb-4'>
-                    Rs {productData.productPrice} {/* Corrected to productPrice */}
-                </h1>
-
-                <div className='flex items-center gap-3 mb-4'>
-                    <div className='bg-green-500 w-3 h-3 rounded-full animate-pulse'></div>
-                    <p className='text-lg lg:text-xl font-medium text-gray-700'>Item in stock</p>
+        <div className="container mx-auto px-6 py-10">
+     
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+     
+                <div className="relative">
+                    <img
+                        src={productData.imagePath}
+                        alt="Selected Product"
+                        className="w-full rounded-lg transition-transform duration-300 hover:scale-105"
+                    />
+                    <span className="absolute top-4 left-4 bg-teal-500 text-white text-sm px-3 py-1 rounded-full">
+                        Best Seller
+                    </span>
                 </div>
+                <div className="mt-8 lg:mt-16 space-y-6">
+                    <h1 className="text-4xl font-bold text-gray-800">{productData.productName}</h1>
+                    <div className="flex items-center space-x-2">
+                        <div className="flex text-yellow-500">
+                            <AiFillStar /><AiFillStar /><AiFillStar /><AiFillStar /><AiOutlineStar />
+                        </div>
+                    </div>
+                    <h2 className="text-2xl font-semibold text-teal-600">
+                        Rs {productData.productPrice}
+                    </h2>
+                    <p className="text-gray-700">
+                        Premium quality product crafted to perfection, ensuring durability and reliability. 
+                        Get yours today and enjoy exclusive benefits.
+                    </p>
 
-                <div className='flex items-center gap-3 mb-6'>
-                    <PiArrowFatRightLight className='text-lg lg:text-xl text-teal-600' />
-                    <p className='text-lg lg:text-xl text-teal-600 font-semibold'>Free shipping on orders above 500/-</p>
+                    <div className="space-y-2">
+                        <div className="flex items-center space-x-2">
+                            <PiArrowFatRightLight className="text-teal-500 text-lg" />
+                            <p className="text-sm text-gray-700">Free shipping on orders above 1000/-</p>
+                        </div><br/>
+                        <div className="flex items-center space-x-2">
+                            <MdOutlineVerified className="text-green-500 text-lg" />
+                            <p className="text-sm text-gray-700">Certified product with quality assurance</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <p className="text-lg font-semibold text-gray-800">Quantity</p>
+                        <div className="flex items-center mt-2 space-x-4">
+                            <button
+                                className="w-10 h-10 bg-gray-800 text-white rounded hover:bg-gray-700 transition"
+                                onClick={dec}
+                            >
+                                -
+                            </button>
+                            <p className="text-lg font-medium">{increase}</p>
+                            <button
+                                className="w-10 h-10 bg-gray-800 text-white rounded hover:bg-gray-700 transition"
+                                onClick={inc}
+                            >
+                                +
+                            </button>
+                        </div>
+                    </div>
+                    <div>
+                        <p className="text-lg font-semibold text-gray-800">Total Price</p>
+                        <div className="text-2xl font-bold text-teal-600 mt-2">Rs {gram}</div>
+                    </div>
+                    <button
+                        className="w-full bg-teal-500 text-white py-2 px-4 rounded-lg hover:bg-teal-600 transition"
+                        onClick={handleCartClick}
+                    >
+                        Add to Cart
+                    </button>
                 </div>
-
-                <p className='mt-4 text-lg lg:text-xl font-semibold'>Quantity</p>
-                <div className='flex gap-4 lg:gap-6 mt-5'>
-                    <button className='bg-[#4A4A4A] w-full lg:w-28 h-12 lg:h-14 rounded-lg text-white text-sm lg:text-base hover:bg-gray-700 transition-transform transform hover:scale-105' onClick={dec}>-</button>
-                    <p className='mt-3 font-semibold'>{increase}</p>
-                    <button className='bg-[#4A4A4A] w-full lg:w-28 h-12 lg:h-14 rounded-lg text-white text-sm lg:text-base hover:bg-gray-700 transition-transform transform hover:scale-105' onClick={inc}>+</button>
-                </div>
-
-                <p className='mt-6 text-lg lg:text-xl font-semibold'>Total price</p>
-                <button className='bg-[#4A4A4A] w-full lg:w-80 h-12 lg:h-14 mt-7 rounded-lg text-white text-sm lg:text-base font-semibold hover:bg-gray-700 transition-transform transform hover:scale-105 shadow-md'>
-                    Rs {gram}
-                </button>
-
-                <div className='flex flex-row xs:flex-row sm:flex-row md:flex-row gap-4 lg:gap-5 mt-5'>
-                    <button className='bg-[rgba(36,174,241,255)] w-full xs:w-1/2 sm:w-1/2 md:w-1/2 lg:w-80 h-12 lg:h-14 rounded-lg text-white text-sm lg:text-base font-semibold hover:opacity-90 transition-transform transform hover:scale-105 shadow-md' onClick={handleCartClick}>Add to Cart</button>
-                    <button className='bg-[rgba(36,174,241,255)] w-full xs:w-1/2 sm:w-1/2 md:w-1/2 lg:w-80 h-12 lg:h-14 rounded-lg text-white text-sm lg:text-base font-semibold hover:opacity-90 transition-transform transform hover:scale-105 shadow-md' onClick={handleBuyNowClick}>Buy it Now</button>
-                </div>
-
-                <p className='mt-6 text-sm lg:text-base text-gray-600'>{productData.productDesc}</p>
-                <p className='mt-6 text-sm lg:text-base text-gray-600'>
-                    {productData.productdesc} </p>
             </div>
 
-            {isPaymentPopupVisible && (
-                <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center z-50">
-                    <div className="bg-white p-6 rounded-lg shadow-xl max-w-md relative">
-                        <button
-                            className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
-                            onClick={handleClosePaymentPopup}
-                        >
-                            ✕
-                        </button>
-                       
-                    </div>
+            <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="flex items-center space-x-4">
+                    <MdLocalShipping className="text-teal-500 text-3xl" />
+                    <p className="text-gray-700">Fast and secure delivery.</p>
                 </div>
-            )}
+                <div className="flex items-center space-x-4">
+                    <MdOutlineVerified className="text-green-500 text-3xl" />
+                    <p className="text-gray-700">100% quality guarantee.</p>
+                </div>
+                <div className="flex items-center space-x-4">
+                    <PiArrowFatRightLight className="text-blue-500 text-3xl" />
+                    <p className="text-gray-700">Exclusive offers for members.</p>
+                </div>
+            </div>
         </div>
     );
 };

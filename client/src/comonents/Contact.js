@@ -1,4 +1,4 @@
-import React ,{useEffect}from 'react'
+import React ,{useEffect,useState}from 'react'
 import { GoMail } from "react-icons/go";
 import { MdOutlinePhone } from "react-icons/md";
 import { PiBuildingOffice } from "react-icons/pi";
@@ -6,9 +6,47 @@ import { IoIosHelpCircleOutline } from "react-icons/io";
 import Aos from 'aos'
 import 'aos/dist/aos.css'
 const Contact = () => {
-  useEffect(()=>{
-    Aos.init({duration:2000});
-  },[]);
+  const [formData, setFormData] = useState({
+    name: '',
+    phone: '',
+    email: '',
+    message: ''
+  });
+
+  useEffect(() => {
+    Aos.init({ duration: 2000 });
+  }, []);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    try {
+      const response = await fetch('http://127.0.0.1:4000/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        alert('Message sent successfully');
+      } else {
+        alert('Failed to send message');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('An error occurred');
+    }
+  };
   return (
     <>
     <style>
@@ -20,17 +58,17 @@ const Contact = () => {
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #ffffff; /* Light blue background color */
-  overflow-x: hidden; /* Prevent horizontal scroll for animation */
+  background-color: #ffffff; 
+  overflow-x: hidden; 
 }
 
-/* Fade-in animation */
+
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
 }
 
-/* Slide-in animation */
+
 @keyframes slideIn {
   from { transform: translateY(30px); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
@@ -42,7 +80,7 @@ body > * {
 }
 
 .container1 {
-  background-color: #ffffff; /* White background for container */
+  background-color: #ffffff;
   width: 100%;
   height: auto;
   display: flex;
@@ -74,7 +112,7 @@ body > * {
 }
 
 .contact-card {
-  background-color: #ffffff; /* White background for contact cards */
+  background-color: #ffffff; 
   width: 400px;
   height: 400px;
   border-radius: 15px;
@@ -96,12 +134,12 @@ body > * {
 .icon {
   font-size: 100px;
   margin-top: 10px;
-  color: #3498db; /* Blue color for icons */
+  color: #3498db;
   transition: color 0.3s ease;
 }
 
 .icon:hover {
-  color: #2980b9; /* Darker blue on hover */
+  color: #2980b9; 
 }
 
 .office {
@@ -132,7 +170,7 @@ body > * {
 }
 
 .contact-method {
-  background-color: #ffffff; /* White background for contact methods */
+  background-color: #ffffff;
   display: flex;
   align-items: center;
   width: 400px;
@@ -148,12 +186,12 @@ body > * {
   font-size: 30px;
   width: 40px;
   height: 40px;
-  color: #3498db; /* Blue color for contact method icons */
+  color: #3498db; 
   transition: color 0.3s ease;
 }
 
 .contact-method .icon:hover {
-  color: #2980b9; /* Darker blue on hover */
+  color: #2980b9; 
 }
 
 .info {
@@ -161,7 +199,7 @@ body > * {
 }
 
 .form-container {
-  background-color: #ffffff; /* White background for form container */
+  background-color: #ffffff; 
   width: 600px;
   height: 700px;
   border-top-left-radius: 200px;
@@ -172,7 +210,7 @@ body > * {
 }
 
 .form {
-  background-color: #ffffff; /* White background for form */
+  background-color: #ffffff; 
   width: 500px;
   padding: 40px;
   border-radius: 15px;
@@ -196,7 +234,7 @@ body > * {
 }
 
 .input:focus, .textarea:focus {
-  border-color: #3498db; /* Highlight border on focus */
+  border-color: #3498db;
 }
 
 .textarea {
@@ -211,14 +249,14 @@ body > * {
   border: none;
   outline: none;
   color: #ffffff;
-  background-color: #3498db; /* Blue background for submit button */
+  background-color: #3498db; 
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .submit-button:hover {
-  background-color: #2980b9; /* Darker blue on hover */
-  transform: scale(1.05); /* Slight scale-up on hover */
+  background-color: #2980b9; 
+  transform: scale(1.05); 
 }
 
 /* Responsive adjustments */
@@ -316,12 +354,12 @@ body > * {
           <div className='contact-card'>
             <div className='icon'><GoMail /></div>
             <h1 className='office'>Mail</h1>
-            <p className='data'>company@gmail.com</p>
+            <p className='data'>RlR@gmail.com</p>
           </div>
           <div className='contact-card'>
             <div className='icon'><IoIosHelpCircleOutline /></div>
             <h1 className='office'>Help & Support</h1>
-            <p className='data'>+101 8317494051</p>
+            <p className='data'>+91 9515487572</p>
           </div>
         </div>
         <div className='middle'>
@@ -329,34 +367,57 @@ body > * {
             <h1 className='contact'>Get in touch together</h1>
             <div className='contact-method'>
               <div className='icon'><GoMail /></div>
-              <p className='info'>company@gmail.com</p>
+              <p className='info'>RLR@gmail.com</p>
             </div>
             <div className='contact-method'>
               <div className='icon'><MdOutlinePhone /></div>
-              <p className='info'>+91 9515096422</p>
+              <p className='info'>+91 9515487572</p>
             </div>
           </div>
           <div className='form-container'>
-            <form className='form' data-aos='fade-up'>
-              <div className='form-group'>
-                <label>Name</label>
-                <input className='input' type='text' />
-              </div>
-              <div className='form-group'>
-                <label>Phone number</label>
-                <input className='input' type='tel' />
-              </div>
-              <div className='form-group'>
-                <label>Email</label>
-                <input className='input' type='email' />
-              </div>
-              <div className='form-group'>
-                <label>Leave us a message</label>
-                <textarea className='textarea'></textarea>
-              </div>
-              <button type='submit' className='submit-button'>Send</button>
-            </form>
+        <form className='form' onSubmit={handleSubmit} data-aos='fade-up'>
+          <div className='form-group'>
+            <label>Name</label>
+            <input
+              className='input'
+              type='text'
+              name='name'
+              value={formData.name}
+              onChange={handleChange}
+            />
           </div>
+          <div className='form-group'>
+            <label>Phone number</label>
+            <input
+              className='input'
+              type='tel'
+              name='phone'
+              value={formData.phone}
+              onChange={handleChange}
+            />
+          </div>
+          <div className='form-group'>
+            <label>Email</label>
+            <input
+              className='input'
+              type='email'
+              name='email'
+              value={formData.email}
+              onChange={handleChange}
+            />
+          </div>
+          <div className='form-group'>
+            <label>Leave us a message</label>
+            <textarea
+              className='textarea'
+              name='message'
+              value={formData.message}
+              onChange={handleChange}
+            ></textarea>
+          </div>
+          <button type='submit' className='submit-button'>Send</button>
+        </form>
+      </div>
         </div>
       </div>
     </div>

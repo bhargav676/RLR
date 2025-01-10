@@ -4,10 +4,6 @@ import { motion } from 'framer-motion';
 
 const AboutUs = () => {
   const [teamMembers] = useState([
-    { name: 'John Doe', role: 'CEO', img: 'https://randomuser.me/api/portraits/men/1.jpg' },
-    { name: 'Jane Smith', role: 'CTO', img: 'https://randomuser.me/api/portraits/women/1.jpg' },
-    { name: 'Alice Johnson', role: 'COO', img: 'https://randomuser.me/api/portraits/women/2.jpg' },
-    { name: 'Bob Brown', role: 'CFO', img: 'https://randomuser.me/api/portraits/men/2.jpg' },
   ]);
 
   return (

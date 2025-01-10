@@ -5,7 +5,6 @@ import axios from 'axios';
 const ImageDetail = () => {
     const { index } = useParams(); 
     const [image, setImage] = useState(null);
-
     useEffect(() => {
         const fetchImageDetail = async () => {
             try {
@@ -23,10 +22,9 @@ const ImageDetail = () => {
         <div className="flex flex-col items-center min-h-screen bg-gray-50 py-8 px-4">
             {image ? (
                 <div className="max-w-4xl w-full">
-                    {/* Main Image */}
                     <div className="mb-8">
                         <img
-                            src={image.images[0]} // Assuming the first image is the main one
+                            src={image.images[0]} 
                             alt="Main"
                             className="w-full h-auto object-cover rounded-lg shadow-md"
                         />
@@ -34,8 +32,6 @@ const ImageDetail = () => {
                             {image.title}
                         </h1>
                     </div>
-
-                    {/* Steps */}
                     <div className="space-y-6">
                         {image.images.slice(1).map((img, i) => (
                             <div 
@@ -57,6 +53,36 @@ const ImageDetail = () => {
                                 </div>
                             </div>
                         ))}
+                        {image.videoLink && (
+                        <div className="mt-8 bg-white shadow-lg rounded-lg p-6 border border-gray-200">
+                            <h2 className="text-xl font-semibold text-gray-800 mb-4">Video Link</h2>
+                            <p className="text-gray-600">
+                                <a 
+                                    href={image.videoLink} 
+                                    target="_blank" 
+                                    rel="noopener noreferrer" 
+                                    className="text-teal-600 underline"
+                                >
+                                    Watch the video here
+                                </a>
+                            </p>
+                        </div>
+                    )}
+                    {image.componentLink && (
+                        <div className="mt-8 bg-white shadow-lg rounded-lg p-6 border border-gray-200">
+                            <h2 className="text-xl font-semibold text-gray-800 mb-4">Component Link</h2>
+                            <p className="text-gray-600">
+                                <a 
+                                    href={image.componentLink} 
+                                    target="_blank" 
+                                    rel="noopener noreferrer" 
+                                    className="text-teal-600 underline"
+                                >
+                                    View the component here
+                                </a>
+                            </p>
+                        </div>
+                    )}
                     </div>
                 </div>
             ) : (
@@ -65,5 +91,4 @@ const ImageDetail = () => {
         </div>
     );
 };
-
 export default ImageDetail;

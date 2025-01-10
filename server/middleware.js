@@ -8,8 +8,8 @@ function middleware(req, res, next) {
   }
 
   try {
-    const decoded = jwt.verify(token, 'jwtsecret'); // Replace 'jwtsecret' with your actual secret key
-    req.user = decoded.user;  // Assuming the user data is stored under 'user' in the token payload
+    const decoded = jwt.verify(token, 'jwtsecret'); 
+    req.user = decoded.user;  
     next();
   } catch (error) {
     console.error('Token verification failed:', error);

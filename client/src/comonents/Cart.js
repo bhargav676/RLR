@@ -20,6 +20,7 @@ const Cart = () => {
         price: Number(productprice),
         quantity: 1,
       };
+     
 
       setCartItems((prevItems) => {
         const isItemAlreadyInCart = prevItems.some(item => item.name === newItem.name);
