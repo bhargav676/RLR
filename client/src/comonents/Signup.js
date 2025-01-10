@@ -6,14 +6,16 @@ import { FaPhoneAlt } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import axios from 'axios'; 
 import { useNavigate } from 'react-router-dom';
+
 const Signup = () => {
-    const navigate=useNavigate();
+  const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [mobile, setMobile] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(''); // Error state
   const [success, setSuccess] = useState(''); // Success state
+  const [loading, setLoading] = useState(false); // Loading state
 
   const usernameChange = (e) => setUsername(e.target.value);
   const mobileChange = (e) => setMobile(e.target.value);
@@ -22,6 +24,7 @@ const Signup = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    setLoading(true); // Start loading spinner
 
     try {
       const response = await axios.post('https://rlrserver.vercel.app/signup', {
@@ -30,16 +33,18 @@ const Signup = () => {
         email,
         password,
       });
-      navigate('/login')
       setSuccess(response.data.message); 
       setError(''); 
       setUsername('');
       setMobile('');
       setEmail('');
       setPassword('');
+      navigate('/login');
     } catch (err) {
       setError(err.response?.data?.message || 'Registration failed'); 
       setSuccess('');
+    } finally {
+      setLoading(false); // Stop loading spinner after request is complete
     }
   };
 
@@ -56,6 +61,8 @@ const Signup = () => {
             <div>
               {error && <p className="text-red-500 text-sm">{error}</p>} {/* Display error */}
               {success && <p className="text-green-500 text-sm">{success}</p>}<br/> {/* Display success */}
+
+              {/* Form inputs */}
               <div className='border-2 w-72 h-11 border-[rgba(140,140,140,255)] rounded-full flex gap-5'>
                 <FaUser className='text-[rgba(140,140,140,255)] mt-3 ml-4' />
                 <input
@@ -100,8 +107,13 @@ const Signup = () => {
               <button
                 type='submit'
                 className='bg-[rgba(36,174,241,255)] w-28 h-10 rounded-full text-white font-semibold'
+                disabled={loading} // Disable button during loading
               >
-                Signup
+                {loading ? (
+                  <div className="animate-spin border-4 border-t-4 border-gray-200 w-6 h-6 rounded-full mx-auto border-t-[rgba(36,174,241,255)]"></div> // Spinner during loading
+                ) : (
+                  'Signup'
+                )}
               </button><br /><br />
               <div className='flex justify-center gap-1'>
                 <p className='font-normal'>Already have an account?</p>
@@ -118,3 +130,4 @@ const Signup = () => {
 };
 
 export default Signup;
+ 
