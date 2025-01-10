@@ -29,7 +29,7 @@ const Contact = () => {
     e.preventDefault();
     
     try {
-      const response = await fetch('http://127.0.0.1:4000/contact', {
+      const response = await fetch('https://rlrserver.vercel.app/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -8,7 +8,7 @@ const ImageDetail = () => {
     useEffect(() => {
         const fetchImageDetail = async () => {
             try {
-                const response = await axios.get('http://127.0.0.1:4001/getimages');
+                const response = await axios.get('https://rlr-component-server.vercel.app/getimages');
                 console.log('Fetched image data:', response.data[index]); 
                 setImage(response.data[index]);
             } catch (err) {

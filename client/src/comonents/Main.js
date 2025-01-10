@@ -30,7 +30,7 @@ const Main = () => {
             navigate('/login');
         } else {
             axios
-                .get('http://127.0.0.1:4000/profile', { headers: { 'Authorization': `Bearer ${token}` } })
+                .get('https://rlrserver.vercel.app//profile', { headers: { 'Authorization': `Bearer ${token}` } })
                 .then((res) => {
                     setLoading(false);
                     setUserDetails(res.data);  
@@ -45,7 +45,7 @@ const Main = () => {
     useEffect(() => {
         const fetchMain = async () => {
             try {
-                const response = await axios.get('http://127.0.0.1:4001/getimages');
+                const response = await axios.get('https://rlr-component-server.vercel.app/getimages');
                 setComponent(response.data);
                 setFilteredComponent(response.data); 
             } catch (err) {
