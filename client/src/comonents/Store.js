@@ -10,7 +10,7 @@ const Store = () => {
     useEffect(() => {
         const fetchMain = async () => {
             try {
-                const response = await axios.get('http://127.0.0.1:4001/components');
+                const response = await axios.get('https://rlr-component-server.vercel.app/components');
                 setComponents(response.data);
             } catch (err) {
                 console.error('Error occurred in the image fetch:', err);
