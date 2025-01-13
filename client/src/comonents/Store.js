@@ -6,7 +6,7 @@ import {Link} from 'react-router-dom'
 const Store = () => {
     const [components, setComponents] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
-
+    const [isLoading, setIsLoading] = useState(true); 
     useEffect(() => {
         const fetchMain = async () => {
             try {
@@ -14,6 +14,8 @@ const Store = () => {
                 setComponents(response.data);
             } catch (err) {
                 console.error('Error occurred in the image fetch:', err);
+            }finally {
+                setIsLoading(false); 
             }
         };
         fetchMain();
@@ -39,7 +41,9 @@ const Store = () => {
             </div>
 
             <div className="grid grid-cols-2 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 lg:p-10">
-                {filteredComponents.length > 0 ? (
+            {isLoading ? (
+                <p className="text-center text-gray-500">Loading...</p> // Show loading text
+            ) : filteredComponents.length > 0 ? (
                     filteredComponents.map((data, index) => (
                         data && data.url ? (
                             <div>
@@ -75,9 +79,9 @@ const Store = () => {
 
                                 
                             </div>
-                              {/* Product Name */}
+                            
                               <h3 className="text-base font-bold  font-sans text-black  ml-2">{data.name}</h3>
-                            {/* Price and Grams */}
+                           
                             <div className="flex space-x-2">
                                     <p className="text-base text-gray-700 ml-2">Rs.{data.price}</p>
                                     
