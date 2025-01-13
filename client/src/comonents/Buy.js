@@ -105,6 +105,7 @@ const Buy = () => {
                             >
                                 +
                             </button>
+                            
                         </div>
                     </div>
                     <div>
@@ -117,9 +118,10 @@ const Buy = () => {
                     >
                         Add to Cart
                     </button>
+                    <p className="text-sm text-gray-700">{productData.productdesc}</p>
                 </div>
             </div>
-
+            
             <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="flex items-center space-x-4">
                     <MdLocalShipping className="text-teal-500 text-3xl" />
