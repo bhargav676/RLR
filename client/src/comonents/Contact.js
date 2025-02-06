@@ -349,12 +349,12 @@ body > * {
           <div className='contact-card' >
             <div className='icon'><PiBuildingOffice /></div>
             <h1 className='office'>Visit for office</h1>
-            <p className='data'>9261 Candice Trail, Carolina, United State</p>
+            <p className='data'>Sree Sita Rama Nivas, Ponduru, Srikakulam District, Andhra Pradesh</p>
           </div>
           <div className='contact-card'>
             <div className='icon'><GoMail /></div>
             <h1 className='office'>Mail</h1>
-            <p className='data'>RlR@gmail.com</p>
+            <p className='data'>lokranjithrepaka3@gmail.com</p>
           </div>
           <div className='contact-card'>
             <div className='icon'><IoIosHelpCircleOutline /></div>
@@ -367,7 +367,7 @@ body > * {
             <h1 className='contact'>Get in touch together</h1>
             <div className='contact-method'>
               <div className='icon'><GoMail /></div>
-              <p className='info'>RLR@gmail.com</p>
+              <p className='info'>lokranjithrepaka3@gmail.com</p>
             </div>
             <div className='contact-method'>
               <div className='icon'><MdOutlinePhone /></div>

@@ -118,7 +118,11 @@ const Buy = () => {
                     >
                         Add to Cart
                     </button>
-                    <p className="text-sm text-gray-700">{productData.productdesc}</p>
+                    <pre className="text-sm text-gray-700 tracking-wider whitespace-pre-wrap break-words font-sans">
+  {productData.productdesc}
+</pre>
+
+
                 </div>
             </div>
             

@@ -18,8 +18,8 @@ const Footer = () => {
         <div>
           <h2 className="text-lg font-semibold mb-4">Quick Links</h2>
           <ul className="space-y-2 text-sm">
-            <li><a href="/" className="hover:underline">Home</a></li>
-            <li><a href="/products" className="hover:underline">Products</a></li>
+            <li><a href="/dashboard" className="hover:underline">Home</a></li>
+            <li><a href="/store" className="hover:underline">Products</a></li>
             <li><a href="/store"className="hover:underline">Shop</a></li>
             <li><a href="/contact" className="hover:underline">Contact</a></li>
           </ul>
@@ -44,7 +44,7 @@ const Footer = () => {
               <FaTwitter />
             </a>
             <a
-              href="https://instagram.com"
+              href="https://www.instagram.com/repaka_ranjith?igsh=MWdoNnEwMDcwdzY2cg=="
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-700 hover:text-[rgba(36,174,241,255)] text-2xl"
@@ -60,7 +60,7 @@ const Footer = () => {
               <FaLinkedin />
             </a>
             <a
-              href="https://youtube.com"
+              href="https://youtube.com/@rlrentertainmentsinventions?si=f15zafB7aw3qrY0L"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-700 hover:text-[rgba(36,174,241,255)] text-2xl"

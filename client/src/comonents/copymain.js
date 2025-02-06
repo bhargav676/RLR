@@ -26,26 +26,22 @@ const Main = () => {
     const toggleProfileMenu = () => setProfileMenuOpen(!profileMenuOpen);  
 
     useEffect(() => {
-        const storedToken = localStorage.getItem("token"); 
-    
-        if (!storedToken) {
+        if (!token) {
             navigate('/login');
         } else {
             axios
-                .get('https://rlrserver.vercel.app/profile', { 
-                    headers: { 'Authorization': `Bearer ${storedToken}` } 
-                })
+                .get('https://rlrserver.vercel.app/profile', { headers: { 'Authorization': `Bearer ${token}` } })
                 .then((res) => {
                     setLoading(false);
-                    setUserDetails(res.data);
+                    setUserDetails(res.data);  
                 })
                 .catch((err) => {
                     console.error('Error fetching profile data:', err);
                     setLoading(false);
                 });
         }
-    }, [navigate]); 
-    
+    }, [token, navigate]);
+
     useEffect(() => {
         const fetchMain = async () => {
             try {
