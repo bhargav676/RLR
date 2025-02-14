@@ -186,17 +186,17 @@ const Main = () => {
                         >
                             <img
                                 src={item.images[0]}
-                                alt={item.title}
+                                alt=" "
                                 className="w-full sm:w-64 md:w-72 lg:w-80 xl:w-96 h-64 object-cover rounded-t-lg"
                                 onClick={() => handleImageClick(index)}
                             />
                             <div className="w-full sm:w-64 md:w-72 lg:w-80 xl:w-96 mt-2">
-                                <p className="ml-8 text-sm sm:text-base md:text-lg lg:text-lg font-medium line-clamp-1">
-                                    {item.title.split(' ')}
+                                <p className="ml-8 text-lg sm:text-lg md:text-lg lg:text-lg font-medium line-clamp-1">
+                                    {item.title}
                                 </p>
-                                <p className="text-sm sm:text-base md:text-lg lg:text-lg font-medium line-clamp-1">
+                                {/* <p className="text-sm sm:text-base md:text-lg lg:text-lg font-medium line-clamp-1">
                                     {item.title.split(' ').slice(1).join(' ')}
-                                </p>
+                                </p> */}
                             </div>
                         </div>
                     ))}

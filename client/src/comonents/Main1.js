@@ -30,7 +30,10 @@ const ImageDetail = () => {
                         />
                         <h1 className="mt-4 text-2xl font-bold text-gray-800 text-center">
                             {image.title}
-                        </h1>
+                        </h1><br/>
+                        <p className="text-gray-600">
+                            {image.abstract}
+                        </p>
                     </div>
                     <div className="space-y-6">
                         {image.images.slice(1).map((img, i) => (
